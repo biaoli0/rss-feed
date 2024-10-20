@@ -1,11 +1,20 @@
 import express from 'express';
-import { getNikeBasketballSale } from './src/websites/getNikeBasketballSale.js';
+import { getNikeLatestBasketball } from './src/websites/getNikeLatestBasketball.js';
+import { getNikeLatestBasketballSale } from './src/websites/getNikeLatestBasketballSale.js';
 
 const app = express();
+const FEED_MAP = {
+  'latest-nike-shoes': getNikeLatestBasketball,
+  'latest-nike-shoes-sale': getNikeLatestBasketballSale,
+};
+
 // Set up a route to serve the RSS feed as HTML
-app.get('/rss', async (req, res) => {
+app.get('/rss/:feedId', async (req, res) => {
+  const feedId = req.params.feedId;
+  const fetchFeed = FEED_MAP[feedId];
+
   try {
-    const feed = await getNikeBasketballSale();
+    const feed = await fetchFeed();
     // Set the content type to 'application/rss+xml' or 'application/xml'
     res.set('Content-Type', 'application/rss+xml');
 

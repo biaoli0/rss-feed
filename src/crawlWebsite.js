@@ -3,10 +3,7 @@ import axios from 'axios';
 import * as cheerio from 'cheerio';
 import { feedGenerator } from './Feed.js';
 
-// The URL to crawl
-const url = 'https://www.nike.com/au/w/mens-basketball-shoes-3glsmznik1zy7ok?sortBy=newest';
-
-export async function crawlWebsite(feedTitle, fetchItems) {
+export async function crawlWebsite(url, feedTitle, fetchItems) {
   try {
     const feed = feedGenerator(feedTitle);
     // Fetch the HTML of the page
@@ -22,6 +19,7 @@ export async function crawlWebsite(feedTitle, fetchItems) {
         title: post.title,
         id: post.link,
         link: post.link,
+        date: post.updated,
       });
     });
 
