@@ -5,7 +5,7 @@ const cachedItems = {};
 // The URL to crawl
 const url = 'https://www.nike.com/au/w/sale-basketball-shoes-3glsmz3yaepzy7ok';
 
-export const getNikeLatestBasketball = async () => {
+export const getNikeLatestBasketballSale = async () => {
   const fetchItems = ($) => {
     const items = [];
     $('a.product-card__img-link-overlay').each((index, element) => {
